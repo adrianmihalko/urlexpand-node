@@ -74,7 +74,8 @@ const server = http.createServer((req, res) => {
   textResponse(res, 404, "not found");
 });
 
-const port = Number.parseInt(process.env.PORT, 10) || 8080;
+const portEnv = process.env.URLEXPAND_PORT || process.env.PORT;
+const port = Number.parseInt(portEnv, 10) || 8080;
 server.listen(port, "0.0.0.0", () => {
   console.log(`Listening on http://0.0.0.0:${port}`);
 });

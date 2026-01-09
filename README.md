@@ -43,7 +43,7 @@ Web server
 ```bash
 node server.js
 ```
-Then open `http://localhost:8080`.
+Then open `http://localhost:8080`. Set `URLEXPAND_PORT` or `PORT` to override the port.
 
 Redirect endpoint
 -----------------
