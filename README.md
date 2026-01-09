@@ -5,11 +5,6 @@ and includes a tiny web UI + redirect endpoint.
 
 ![Screenshot](./screenshot.png)
 
-Credits
--------
-Original project: `urlexpand` by marirs (Rust).  
-Repository: https://github.com/marirs/urlexpand
-
 Why this exists
 ---------------
 I built this tool because AdGuard blocks some shortened links (e.g., AliExpress).
@@ -135,3 +130,8 @@ Convenience launcher
 ./run.sh
 ```
 This starts the server with `URLEXPAND_DNS=google` and `URLEXPAND_INSECURE=1` enabled.
+
+Credits
+-------
+Original project: `urlexpand` by marirs (Rust).  
+Repository: https://github.com/marirs/urlexpand
