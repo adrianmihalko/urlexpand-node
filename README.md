@@ -5,6 +5,11 @@ and includes a tiny web UI + redirect endpoint.
 
 ![Screenshot](./screenshot.png)
 
+Credits
+-------
+Original project: `urlexpand` by marirs (Rust).  
+Repository: https://github.com/marirs/urlexpand
+
 Why this exists
 ---------------
 I built this tool because AdGuard blocks some shortened links (e.g., AliExpress).
