@@ -3,6 +3,8 @@ URLEXPAND (Node)
 Node.js port of the Rust urlexpand crate. Expands shortened URLs, strips tracking parameters,
 and includes a tiny web UI + redirect endpoint.
 
+![Screenshot](./screenshot.png)
+
 Why this exists
 ---------------
 I built this tool because AdGuard blocks some shortened links (e.g., AliExpress).
