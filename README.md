@@ -3,6 +3,12 @@ URLEXPAND (Node)
 Node.js port of the Rust urlexpand crate. Expands shortened URLs, strips tracking parameters,
 and includes a tiny web UI + redirect endpoint.
 
+Why this exists
+---------------
+I built this tool because AdGuard blocks some shortened links (e.g., AliExpress).
+This lets me unshorten and clean links without enabling those shortener domains,
+and removes tracking parameters for a clean URL.
+
 Requirements
 ------------
 - Node.js 18+ (uses built-in `fetch`)
@@ -50,6 +56,71 @@ Tracking cleanup
 Expanded URLs are automatically stripped of common tracking parameters:
 `utm_*`, `fbclid`, `gclid`, `aff_*`, `aff_trace_key`, `terminal_id`,
 `afSmartRedirect`, `spm`, `scm`, `tt`, `sk`, and others.
+
+Supported shorteners
+--------------------
+- `adf.ly` / `atominik.com` / `fumacrom.com` / `intamema.com` / `j.gs` / `q.gs`
+- `adfoc.us`
+- `amzn.to`
+- `b.link`
+- `bit.ly` / `j.mp` / `smq.tc`
+- `bit.do`
+- `bn.gy`
+- `branch.io`
+- `buff.ly`
+- `cutt.ly` / `cutt.us`
+- `db.tt`
+- `f.ls`
+- `fa.by` / `rebrand.ly`
+- `fb.me`
+- `flip.it`
+- `geni.us`
+- `git.io`
+- `gns.io` / `ldn.im` / `tr.im`
+- `goo.gl` (legacy)
+- `hmm.rs`
+- `ht.ly` / `ow.ly`
+- `hyperurl.co`
+- `is.gd`
+- `kutt.it`
+- `linklyhq.com`
+- `lnkd.in`
+- `microify.com`
+- `mzl.la`
+- `nmc.sg`
+- `nowlinks.net`
+- `plu.sh`
+- `prf.hn`
+- `qr.ae` / `qr.net`
+- `rb.gy`
+- `rlu.ru`
+- `rotf.lol`
+- `s.click.aliexpress.com`
+- `s.coop`
+- `s.id`
+- `sh.st` / `ceesty.com`
+- `soo.gd`
+- `short.gy` / `shortcm.xyz`
+- `shorturl.at`
+- `smu.sg`
+- `snip.ly` / `snipr.com` / `snipurl.com` / `snurl.com`
+- `split.to` / `tny.sh`
+- `surl.li`
+- `t.co`
+- `t.ly`
+- `t2m.io`
+- `tiny.cc` / `tiny.pl` / `tinyium.com` / `tinyurl.com` / `tiny.one` / `tny.im`
+- `trib.al`
+- `u.to`
+- `v.gd`
+- `virg.in`
+- `vzturl.com`
+- `waa.ai`
+- `washex.am`
+- `x.co` (legacy)
+- `y2u.be`
+- `yourwish.es`
+- `zpr.io`
 
 Convenience launcher
 --------------------
