@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>URL Unshorten</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap');
+
+    :root {
+      --bg-1: #f4f1ea;
+      --bg-2: #e6efe7;
+      --ink: #1c1c1c;
+      --muted: #6f6f6f;
+      --accent: #0d7f6f;
+      --accent-2: #c9f0e6;
+      --card: #fbfaf7;
+      --shadow: rgba(10, 10, 10, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Space Grotesk", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 10% -10%, #e8d6b8 0%, transparent 60%),
+        radial-gradient(700px 400px at 90% 10%, #c7eadf 0%, transparent 55%),
+        linear-gradient(120deg, var(--bg-1), var(--bg-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 18px;
+    }
+
+    .shell {
+      width: min(860px, 100%);
+      background: var(--card);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px var(--shadow);
+      padding: 36px 28px 30px;
+      position: relative;
+      overflow: hidden;
+      animation: rise 600ms ease-out;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -60px 40% auto -60px;
+      height: 220px;
+      background: linear-gradient(120deg, rgba(13, 127, 111, 0.16), rgba(13, 127, 111, 0));
+      filter: blur(6px);
+      border-radius: 50%;
+    }
+
+    h1 {
+      margin: 0 0 8px 0;
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.03em;
+    }
+
+    p {
+      margin: 0 0 26px 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .input-wrap {
+      display: grid;
+      gap: 8px;
+    }
+
+    label {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border: 1px solid rgba(28, 28, 28, 0.1);
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-size: 16px;
+      font-family: inherit;
+      background: white;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,0.02);
+      outline: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(13, 127, 111, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 22px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+      box-shadow: 0 10px 20px rgba(13, 127, 111, 0.2);
+    }
+
+    button:hover { transform: translateY(-1px); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
+
+    .result {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: var(--accent-2);
+      font-size: 15px;
+      color: #0a4d41;
+      min-height: 56px;
+      display: grid;
+      gap: 6px;
+      align-items: center;
+      word-break: break-all;
+      animation: fade 400ms ease;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .result a {
+      color: #0a4d41;
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    @keyframes rise {
+      from { transform: translateY(18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 30px 20px 24px; }
+      textarea { min-height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <h1>Unshorten a link</h1>
+    <p>Paste a shortened URL. The expanded link appears instantly below.</p>
+
+    <form class="form" id="form">
+      <div class="input-wrap">
+        <label for="url-input">Shortened URL</label>
+        <textarea id="url-input" name="url" placeholder="https://bit.ly/3alqLKi" required></textarea>
+      </div>
+      <div class="actions">
+        <button id="submit" type="submit">Expand URL</button>
+        <span class="hint">No tracking, no storage. Plain text in, plain text out.</span>
+      </div>
+      <div class="result" id="result">
+        <span id="result-text">Ready.</span>
+        <a id="result-link" href="#" rel="noreferrer noopener" target="_blank"></a>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const form = document.getElementById('form');
+    const input = document.getElementById('url-input');
+    const result = document.getElementById('result');
+    const resultText = document.getElementById('result-text');
+    const resultLink = document.getElementById('result-link');
+    const submit = document.getElementById('submit');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const url = input.value.trim();
+      if (!url) {
+        resultText.textContent = 'Paste a URL first.';
+        resultLink.textContent = '';
+        resultLink.removeAttribute('href');
+        return;
+      }
+
+      submit.disabled = true;
+      resultText.textContent = 'Expanding...';
+      resultLink.textContent = '';
+      resultLink.removeAttribute('href');
+
+      try {
+        const response = await fetch('/api/unshorten', {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: url
+        });
+
+        const text = await response.text();
+        if (!response.ok) {
+          resultText.textContent = text || 'Could not expand that URL.';
+          resultLink.textContent = '';
+          resultLink.removeAttribute('href');
+        } else {
+          const trimmed = text.trim();
+          if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+            resultText.textContent = 'Expanded URL:';
+            resultLink.textContent = trimmed;
+            resultLink.href = trimmed;
+          } else {
+            resultText.textContent = trimmed;
+            resultLink.textContent = '';
+            resultLink.removeAttribute('href');
+          }
+        }
+      } catch (error) {
+        resultText.textContent = 'Network error. Try again.';
+        resultLink.textContent = '';
+        resultLink.removeAttribute('href');
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

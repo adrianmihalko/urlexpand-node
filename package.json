@@ -1,0 +1,14 @@
+{
+  "name": "urlexpand-node",
+  "version": "0.1.0",
+  "description": "Expand shortened URLs (Node.js port of urlexpand)",
+  "license": "MIT",
+  "type": "commonjs",
+  "main": "src/index.js",
+  "bin": {
+    "unshorten": "bin/unshorten.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
